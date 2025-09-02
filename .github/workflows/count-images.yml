@@ -1,0 +1,23 @@
+name: Count Images in Repo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  count_images:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Count image files
+        id: image_counter
+        run: |
+          IMAGE_COUNT=$(find . -type f -regex ".*\.\(png\|jpeg\|jpg\|gif\|svg\|webp\)" -printf x | wc -c)
+          echo "Number of image files: $IMAGE_COUNT"
+          echo "image_count=$IMAGE_COUNT" >> $GITHUB_OUTPUT
+      
+      - name: Display the result
+        run: |
+          echo "The final count is: ${{ steps.image_counter.outputs.image_count }}"
