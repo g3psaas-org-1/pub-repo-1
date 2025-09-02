@@ -1,7 +1,9 @@
 name: Count Images in Repo
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   count_images:
